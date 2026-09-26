@@ -253,9 +253,18 @@ Error generating stack: `+i.message+`
 
 <script>
 if ('serviceWorker' in navigator) {
-  window.addEventListener('load', function () {
-    navigator.serviceWorker.register('./service-worker.js', { scope: './' })
-      .catch(function (err) { console.warn('Service worker registration failed:', err); });
+  window.addEventListener('load', async () => {
+    try {
+      const reg = await navigator.serviceWorker.register('./service-worker.js');
+      await navigator.serviceWorker.ready;
+      // If the service worker was just installed, reload once so this page is controlled.
+      if (!navigator.serviceWorker.controller && sessionStorage.getItem('rc-sw-reloaded') !== '1') {
+        sessionStorage.setItem('rc-sw-reloaded', '1');
+        location.reload();
+      }
+    } catch (err) {
+      console.error('Service worker registration failed:', err);
+    }
   });
 }
 </script>
