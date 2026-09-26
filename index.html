@@ -12,6 +12,11 @@
   
 .app-themed .bg-white{background-color:rgba(255,255,255,.92)!important}.app-themed .bg-neutral-50{background-color:var(--app-bg)!important}.app-themed .bg-neutral-100{background-color:color-mix(in srgb,var(--app-bg) 86%,var(--app-side) 5%)!important}.app-themed .bg-neutral-200{background-color:color-mix(in srgb,var(--app-bg) 76%,var(--app-side) 9%)!important}.app-themed .text-neutral-800,.app-themed .text-neutral-700,.app-themed .text-neutral-600{color:var(--app-text)!important}.app-themed .text-neutral-500,.app-themed .text-neutral-400{color:color-mix(in srgb,var(--app-text) 68%,transparent)!important}.app-themed .border-neutral-200,.app-themed .border-neutral-100,.app-themed .border-neutral-300{border-color:color-mix(in srgb,var(--app-side) 18%,transparent)!important}.app-themed .bg-teal-800,.app-themed .bg-teal-900{background-color:color-mix(in srgb,var(--app-side) 28%,white)!important;color:var(--app-text)!important}.app-themed .text-teal-800,.app-themed .text-teal-850,.app-themed .text-teal-900,.app-themed .text-teal-950{color:color-mix(in srgb,var(--app-side) 62%,#334155)!important}.app-themed .accent-teal-800,.app-themed .accent-teal-850{accent-color:color-mix(in srgb,var(--app-side) 58%,#64748b)!important}
 </style>
+
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="apple-touch-icon" href="./icon-192.png">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Random Cards">
 </head>
 <body>
   <div id="root"></div>
@@ -245,5 +250,14 @@ Error generating stack: `+i.message+`
 })();
 </script>
 
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function () {
+    navigator.serviceWorker.register('./service-worker.js', { scope: './' })
+      .catch(function (err) { console.warn('Service worker registration failed:', err); });
+  });
+}
+</script>
 </body>
 </html>
